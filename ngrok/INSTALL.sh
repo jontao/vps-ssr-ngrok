@@ -15,3 +15,5 @@ cp device.crt assets/server/tls/snakeoil.crt
 cp device.key assets/server/tls/snakeoil.key
 
 make all
+\cp -f ngrok_bg /etc/rc.d/init.d/
+chkconfig --add ngrok_bg
