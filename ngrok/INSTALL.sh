@@ -1,8 +1,8 @@
 #!/bin/bash
 make clean
 rm assets/client/tls/ngrokroot.crt -f
-rm assets/server/tls/snakeoil.crt
-rm assets/server/tls/snakeoil.key
+rm assets/server/tls/snakeoil.crt -f
+rm assets/server/tls/snakeoil.key -f
 
 openssl genrsa -out rootCA.key 2048
 openssl req -x509 -new -nodes -key rootCA.key -subj "/CN=jonta.cn" -days 5000 -out rootCA.pem
@@ -17,3 +17,4 @@ cp device.key assets/server/tls/snakeoil.key
 make all
 \cp -f ngrok_bg /etc/rc.d/init.d/
 chkconfig --add ngrok_bg
+chkconfig ngrok_bg on
