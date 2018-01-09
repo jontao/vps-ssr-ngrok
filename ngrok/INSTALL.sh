@@ -18,3 +18,4 @@ make all
 \cp -f ngrok_bg /etc/rc.d/init.d/
 chkconfig --add ngrok_bg
 chkconfig ngrok_bg on
+echo "chkconfig on"
