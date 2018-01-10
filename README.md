@@ -1,7 +1,7 @@
 # vps-ssr-ngrok <br>
 NGROK:<br>
 	server:<br>
-	#./ngrokd -domain="jonta.cn" -httpAddr=":80"  -httpsAddr=":443" -log=/var/log/ngrokd.log<br>
+	#./ngrokd -domain="your domain" -httpAddr=":80"  -httpsAddr=":443" -log=/var/log/ngrokd.log<br>
 	client:<br>
 	#./ngrok -config=ngrok.conf start subdomain<br>
 SHADOWSOCKSR:<br>
