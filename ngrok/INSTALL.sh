@@ -1,10 +1,18 @@
 #!/bin/bash
 
-if [  "$1" != "-c"  -a  "$1" != "-s" -a ! -n "$2" ]; then
+if [  "$1" != "-c"  -a  "$1" != "-s" -a "$1" != "-clean" -a ! -n "$2" ]; then
     echo -e "usage: -c client model
        -s server model
        xxx.com/.cn domainname" 
 	exit
+else if [ "$1" = "-clean" ]; then
+         rm ./device* ./rootCA* ./ngrok* ./start.sh
+         rm `pwd`/ngrok_bg /etc/rc.d/init.d/ngrok_bg -f
+         rm assets/client/tls/ngrokroot.crt -f
+         rm assets/server/tls/snakeoil.crt -f
+         rm assets/server/tls/snakeoil.key -f
+         exit
+ fi
 fi
 
 make clean
@@ -19,12 +27,11 @@ openssl genrsa -out device.key 2048
 openssl req -new -key device.key -subj "/CN=$2" -out device.csr
 openssl x509 -req -in device.csr -CA rootCA.pem -CAkey rootCA.key -CAcreateserial -out device.crt -days 5000
 
-cp rootCA.pem assets/client/tls/ngrokroot.crt
-cp device.crt assets/server/tls/snakeoil.crt
-cp device.key assets/server/tls/snakeoil.key
+mv rootCA.pem assets/client/tls/ngrokroot.crt
+mv device.crt assets/server/tls/snakeoil.crt
+mv device.key assets/server/tls/snakeoil.key
 
 make all
-touch `pwd`/ngrok_bg
 echo -e '
 #!/bin/bash
 if [ "$1" = "-c" ]; then
