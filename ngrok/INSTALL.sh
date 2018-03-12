@@ -27,6 +27,7 @@ openssl genrsa -out device.key 2048
 openssl req -new -key device.key -subj "/CN=$2" -out device.csr
 openssl x509 -req -in device.csr -CA rootCA.pem -CAkey rootCA.key -CAcreateserial -out device.crt -days 5000
 
+mkdir -p assets/server/tls assets/client/tls
 mv rootCA.pem assets/client/tls/ngrokroot.crt
 mv device.crt assets/server/tls/snakeoil.crt
 mv device.key assets/server/tls/snakeoil.key
